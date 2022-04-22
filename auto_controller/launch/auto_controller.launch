@@ -1,0 +1,27 @@
+<launch>
+    <arg name="motor_state_topic" default="/vesc/sensors/core" />
+    <arg name="servo_state_topic" default="/vesc/sensors/servo_position_command" />
+    <arg name="ctrl_topic" default="/mux/ackermann_cmd_mux/input/navigation"/>
+    <arg name="scan_topic" default="/scan"/>
+    <arg name="rgb_topic" default="/camera/color/image_raw"/>
+    <arg name="depth_topic" default="/camera/depth/image_rect_raw"/>
+    <arg name="laser_ray_step" default="18"/> 
+    <arg name="exclude_max_range_rays" default="true"/>
+    <arg name="max_range_meters" default="11.0" />
+    <arg name="car_name" default="/car" />
+	
+    <group ns="$(arg car_name)">
+        <node pkg="auto_controller" type="my_node.py" name="my_node" output="screen">
+            <param name="motor_state_topic" value="$(arg motor_state_topic)" />
+            <param name="servo_state_topic" value="$(arg servo_state_topic)" />
+            <param name="ctrl_topic" value="$(arg ctrl_topic)"/>
+            <param name="scan_topic" value="$(arg scan_topic)"/>
+            <param name="rgb_topic" value="$(arg rgb_topic)"/>
+            <param name="depth_topic" value="$(arg depth_topic)"/>
+            <param name="laser_ray_step" value="$(arg laser_ray_step)"/>
+            <param name="exclude_max_range_rays" value="$(arg exclude_max_range_rays)" />
+            <param name="max_range_meters" value="$(arg max_range_meters)" />
+            <param name="car_name" value="$(arg car_name)" />
+        </node>
+    </group>
+</launch>
