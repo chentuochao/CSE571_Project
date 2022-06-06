@@ -18,25 +18,23 @@ class CameraModel:
         else:
             self.state_lock = state_lock
 
-        # Subscribe to RGB image
+        # Subscribe to laser scans
         self.rgb_sub = rospy.Subscriber(
             rgb_topic, Image, self.rgb_cb, queue_size=1
         )
 
-        # Subscribe to depth image
+                # Subscribe to laser scans
         self.depth_sub = rospy.Subscriber(
             depth_topic, Image, self.depth_cb, queue_size=1
         )
 
 
     def rgb_cb(self, msg):
-        # Callback function fotr rgb image
         self.state_lock.acquire()
-        rospy.loginfo("RGB is saving!")
+        #rospy.loginfo("RGB is saving!")
         self.state_lock.release()
 
     def depth_cb(self, msg):
-        # Callback function fotr Depth image
         self.state_lock.acquire()
-        rospy.loginfo("Depth is saving!")
+        #rospy.loginfo("Depth is saving!")
         self.state_lock.release()

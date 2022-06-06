@@ -59,8 +59,9 @@ class SensorModel:
         self.queries = None
         self.ranges = None
         self.laser_angles = None  # The angles of each ray
+        #self.laser_data = None
         self.downsampled_angles = None  # The angles of the downsampled rays
-
+        self.downsampled_ranges = None
         # Set so that outside code can know that it's time to resample
         self.do_resample = False
 
@@ -69,7 +70,17 @@ class SensorModel:
             scan_topic, LaserScan, self.lidar_cb, queue_size=1
         )
         
-
+    def get_lidar_ob(self):
+        if self.downsampled_angles is None or self.downsampled_ranges is None:
+            return None
+            
+        self.state_lock.acquire()
+        obs = (
+                np.copy(self.downsampled_ranges).astype(np.float32),
+                np.copy(self.downsampled_angles).astype(np.float32),
+            )
+        self.state_lock.release()
+        return obs
 
     def lidar_cb(self, msg):
         """
@@ -149,11 +160,6 @@ class SensorModel:
         # Each element of obs must be a numpy array of type np.float32
         # Use self.LASER_RAY_STEP as the downsampling step
         # Keep efficiency in mind, including by caching certain things that won't change across future iterations of this callback
-        obs = (
-            np.copy(self.downsampled_ranges).astype(np.float32),
-            self.downsampled_angles.astype(np.float32),
-        )
-        
-
+    
         ## -------------- process the laser data -----------------
         self.state_lock.release()

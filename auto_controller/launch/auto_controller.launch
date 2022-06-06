@@ -5,7 +5,7 @@
     <arg name="scan_topic" default="/scan"/>
     <arg name="rgb_topic" default="/camera/color/image_raw"/>
     <arg name="depth_topic" default="/camera/depth/image_rect_raw"/>
-    <arg name="laser_ray_step" default="18"/> 
+    <arg name="laser_ray_step" default="5"/> 
     <arg name="exclude_max_range_rays" default="true"/>
     <arg name="max_range_meters" default="11.0" />
     <arg name="car_name" default="/car" />

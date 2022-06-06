@@ -11,14 +11,13 @@ import rospy
 from std_msgs.msg import Float64
 from vesc_msgs.msg import VescStateStamped
 
-'''
 # Tune these Values!
 KM_V_NOISE = 0.4  # Kinematic car velocity noise std dev
 KM_DELTA_NOISE = 0.2  # Kinematic car delta noise std dev
 KM_X_FIX_NOISE = 3e-2  # Kinematic car x position constant noise std dev
 KM_Y_FIX_NOISE = 3e-2  # Kinematic car y position constant noise std dev
 KM_THETA_FIX_NOISE = 1e-1  # Kinematic car theta constant noise std dev
-'''
+
 """
   Propagates the particles forward based the velocity and steering angle of the car
 """
